@@ -94,6 +94,8 @@ main{
 .line-canvas{
   position:fixed;
   top:0;left:var(--sw);right:0;bottom:0;
+  width:calc(100vw - var(--sw));
+  height:100vh;
   pointer-events:none;
   z-index:0;
 }
@@ -196,7 +198,7 @@ main{
 .contact-centered{text-align:center;padding:5rem 2rem 4rem;position:relative;}
 .contact-hl{font-family:'EB Garamond',serif;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:1.4rem;}
 .contact-hl .line1{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;}
-.contact-hl .line2{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;color:var(--accent);font-style:italic;}
+.contact-hl .line2{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;color:var(--accent);}
 .contact-sub{font-size:0.78rem;color:var(--soft);letter-spacing:0.04em;line-height:1.7;margin-bottom:2.5rem;font-weight:300;}
 .c-links{display:flex;justify-content:center;gap:3rem;}
 .c-link{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;font-weight:400;border-bottom:1px solid rgba(196,122,149,0.4);padding-bottom:0.15rem;transition:color 0.2s,border-color 0.2s;}
@@ -424,7 +426,7 @@ links.forEach(link => {
   });
 });
 
-// ── FLOWING LINES ──
+// ── FLORAL + SUBTLE STRIPE BACKGROUND ──
 const canvas = document.getElementById('lineCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -432,50 +434,77 @@ function resize() {
   canvas.width = window.innerWidth - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sw'));
   canvas.height = window.innerHeight;
   canvas.style.left = getComputedStyle(document.documentElement).getPropertyValue('--sw').trim();
-  drawLines();
+  drawPattern();
 }
 
-function bezier(ctx, x1,y1, cx1,cy1, cx2,cy2, x2,y2, color, width) {
-  ctx.beginPath();
-  ctx.moveTo(x1, y1);
-  ctx.bezierCurveTo(cx1,cy1, cx2,cy2, x2,y2);
-  ctx.strokeStyle = color;
-  ctx.lineWidth = width;
-  ctx.stroke();
+function daisy(x,y,r,petalColor,centerColor,rot){
+  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+  for(let i=0;i<5;i++){
+    ctx.save();ctx.rotate((Math.PI*2/5)*i);
+    ctx.beginPath();ctx.ellipse(0,-r*1.1,r*0.42,r*0.88,0,0,Math.PI*2);
+    ctx.fillStyle=petalColor;ctx.fill();ctx.restore();
+  }
+  ctx.beginPath();ctx.arc(0,0,r*0.4,0,Math.PI*2);
+  ctx.fillStyle=centerColor;ctx.fill();ctx.restore();
 }
 
-function drawLines() {
+function smallFlower(x,y,r,color,rot){
+  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+  for(let i=0;i<4;i++){
+    ctx.save();ctx.rotate((Math.PI/2)*i);
+    ctx.beginPath();ctx.ellipse(0,-r,r*0.48,r,0,0,Math.PI*2);
+    ctx.fillStyle=color;ctx.fill();ctx.restore();
+  }
+  ctx.beginPath();ctx.arc(0,0,r*0.32,0,Math.PI*2);
+  ctx.fillStyle='rgba(255,240,190,0.7)';ctx.fill();ctx.restore();
+}
+
+function leaves(x,y,color,rot){
+  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+  [[-4,-5,-25],[4,-5,25],[0,-9,0]].forEach(([lx,ly,lr])=>{
+    ctx.save();ctx.translate(lx,ly);ctx.rotate(lr*Math.PI/180);
+    ctx.beginPath();ctx.ellipse(0,0,2.2,4.5,0,0,Math.PI*2);
+    ctx.fillStyle=color;ctx.fill();ctx.restore();
+  });
+  ctx.restore();
+}
+
+function drawPattern(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  const w = canvas.width, h = canvas.height;
+  const w=canvas.width, h=canvas.height;
 
-  ctx.lineCap = 'round';
+  let seed=42;
+  function rand(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646;}
 
-  // big lazy S-curve across the whole screen
-  bezier(ctx,
-    w*1.05,  -h*0.05,
-    w*-0.2,   h*0.35,
-    w*1.2,    h*0.65,
-    w*-0.05,  h*1.05,
-    'rgba(255,255,255,0.55)', 4.5
-  );
+  const pinkA ='rgba(220,140,165,0.18)';
+  const pinkB ='rgba(240,170,190,0.15)';
+  const blueA ='rgba(180,185,215,0.15)';
+  const leafA ='rgba(160,185,155,0.2)';
+  const leafB ='rgba(170,190,200,0.18)';
+  const yellow='rgba(240,220,160,0.55)';
 
-  // wide gentle arc top-left sweeping to bottom-right
-  bezier(ctx,
-    -w*0.05,  h*0.2,
-    w*0.5,   -h*0.15,
-    w*0.6,    h*1.1,
-    w*1.05,   h*0.75,
-    'rgba(255,255,255,0.45)', 3.8
-  );
+  // scattered florals
+  const cols=7, rows=10;
+  const cellW=w/cols, cellH=h/rows;
+  for(let row=0;row<rows;row++){
+    for(let col=0;col<cols;col++){
+      const x=col*cellW+rand()*cellW;
+      const y=row*cellH+rand()*cellH;
+      const kind=rand(), rot=rand()*Math.PI*2;
+      if(kind<0.35){ daisy(x,y,5+rand()*3,rand()<0.5?pinkA:pinkB,yellow,rot); }
+      else if(kind<0.55){ smallFlower(x,y,4+rand()*2,rand()<0.5?pinkA:blueA,rot); }
+      else if(kind<0.78){ leaves(x,y,rand()<0.5?leafA:leafB,rot); }
+    }
+  }
 
-  // soft shallow wave bottom half
-  bezier(ctx,
-    -w*0.05,  h*0.85,
-    w*0.4,    h*0.4,
-    w*0.7,    h*1.2,
-    w*1.05,   h*0.5,
-    'rgba(255,255,255,0.5)', 3.5
-  );
+  // scattered tiny dots
+  for(let i=0;i<120;i++){
+    const x=rand()*w, y=rand()*h;
+    const r=rand()<0.5 ? 1.5 : 2.2;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.5)';
+    ctx.fill();
+  }
 }
 
 window.addEventListener('resize', resize);
