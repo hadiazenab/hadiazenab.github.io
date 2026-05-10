@@ -194,7 +194,19 @@ main{
 .ot{font-family:'EB Garamond',serif;font-size:0.98rem;margin-bottom:0.4rem;color:var(--ink);font-weight:400;}
 .od{font-size:0.78rem;color:var(--mid);line-height:1.72;font-weight:300;}
 
-/* ── CONTACT ── */
+/* ── GALLERY BTN ── */
+.gallery-btn{
+  position:absolute;top:4.5rem;right:4.5rem;
+  font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.5rem 1.1rem;border-radius:100px;
+  border:1px solid rgba(196,122,149,0.35);
+  color:var(--mid);background:var(--card);
+  cursor:pointer;font-weight:400;font-family:'Jost',sans-serif;
+  transition:all 0.2s;text-decoration:none;
+  display:flex;align-items:center;gap:0.45rem;
+}
+.gallery-btn:hover{background:var(--cupid);border-color:var(--cupid);color:var(--ink);}
+.gallery-btn svg{width:12px;height:12px;opacity:0.6;}
 .contact-centered{text-align:center;padding:5rem 2rem 4rem;position:relative;}
 .contact-hl{font-family:'EB Garamond',serif;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:1.4rem;}
 .contact-hl .line1{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;}
@@ -321,7 +333,13 @@ main{
 
   <!-- EXPERIENCE -->
   <div class="page" id="page-experience">
+    <div style="position:relative;">
+    <a class="gallery-btn" style="position:absolute;top:0;right:0;" href="#" data-page="gallery-experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Gallery
+    </a>
     <h2 class="sec-title">Experience</h2>
+    </div>
     <div class="exp-item">
       <div><div class="exp-date">Jan 2026 — Present</div><div class="exp-org">Waterloo Rocketry</div></div>
       <div>
@@ -365,7 +383,13 @@ main{
 
   <!-- PROJECTS -->
   <div class="page" id="page-projects">
+    <div style="position:relative;">
+    <a class="gallery-btn" style="position:absolute;top:0;right:0;" href="#" data-page="gallery-projects">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Gallery
+    </a>
     <h2 class="sec-title">Projects</h2>
+    </div>
     <div class="proj-sub">In Progress</div>
     <div class="proj-grid">
       <div class="pc active"><span class="pb pb-a">Active</span><div class="pn">Thrust Vector Control System</div><div class="ps">Attitude Control · May 2026 – Present</div><p class="pd">Implemented real-time 2-axis attitude estimation using an MPU-6050 IMU with a complementary filter for sensor fusion of accelerometer and gyroscope data. Built a closed-loop PID servo actuation system that responds to live IMU feedback at 100Hz on an Arduino UNO. Currently designing the 2-axis gimbal mechanism — 3D printed PETG rings with a machined aluminum frame — for active motor mount stabilization.</p></div>
@@ -382,7 +406,13 @@ main{
 
   <!-- OUTSIDE -->
   <div class="page" id="page-outside">
+    <div style="position:relative;">
+    <a class="gallery-btn" style="position:absolute;top:0;right:0;" href="#" data-page="gallery-outside">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Gallery
+    </a>
     <h2 class="sec-title">Outside of Engineering</h2>
+    </div>
     <div class="out-grid">
       <div class="oc"><div class="oi">🎨</div><div class="ot">Art</div><p class="od">Making things doesn't stop when I leave the shop. Art is another way I get to create.</p></div>
       <div class="oc"><div class="oi">🔭</div><div class="ot">Space</div><p class="od">This is a big reason why I ended up in rocketry. I've been fascinated by space for as long as I can remember.</p></div>
@@ -404,6 +434,36 @@ main{
         <a href="https://linkedin.com/in/hadiazenab" target="_blank" class="c-link">LinkedIn</a>
       </div>
     </div>
+  </div>
+
+  <!-- GALLERY: PROJECTS -->
+  <div class="page" id="page-gallery-projects" style="position:relative;">
+    <a class="gallery-btn" href="#" data-page="projects">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </a>
+    <h2 class="sec-title">Projects — Gallery</h2>
+    <p style="color:var(--soft);font-size:0.88rem;">Photos coming soon — upload your images to GitHub and drop the filenames here!</p>
+  </div>
+
+  <!-- GALLERY: EXPERIENCE -->
+  <div class="page" id="page-gallery-experience" style="position:relative;">
+    <a class="gallery-btn" href="#" data-page="experience">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </a>
+    <h2 class="sec-title">Experience — Gallery</h2>
+    <p style="color:var(--soft);font-size:0.88rem;">Photos coming soon — upload your images to GitHub and drop the filenames here!</p>
+  </div>
+
+  <!-- GALLERY: OUTSIDE -->
+  <div class="page" id="page-gallery-outside" style="position:relative;">
+    <a class="gallery-btn" href="#" data-page="outside">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </a>
+    <h2 class="sec-title">Outside — Gallery</h2>
+    <p style="color:var(--soft);font-size:0.88rem;">Photos coming soon — upload your images to GitHub and drop the filenames here!</p>
   </div>
 
 </main>
