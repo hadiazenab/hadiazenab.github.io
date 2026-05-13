@@ -326,7 +326,7 @@ main{
       </div>
       <div class="sg">
         <div class="sg-lbl">Programming</div>
-        <ul style="list-style:none;"><li class="sk">MATLAB</li><li class="sk">Python</li><li class="sk">C++</li><li class="sk">Excel</li><li class="sk">Numerical Methods</li><li class="sk">Streamlit</li></ul>
+        <ul style="list-style:none;"><li class="sk">MATLAB</li><li class="sk">Python</li><li class="sk">Arduino</li><li class="sk">Excel</li><li class="sk">Numerical Methods</li></ul>
       </div>
     </div>
   </div>
@@ -497,38 +497,6 @@ function resize() {
   drawPattern();
 }
 
-function daisy(x,y,r,petalColor,centerColor,rot){
-  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
-  for(let i=0;i<5;i++){
-    ctx.save();ctx.rotate((Math.PI*2/5)*i);
-    ctx.beginPath();ctx.ellipse(0,-r*1.1,r*0.42,r*0.88,0,0,Math.PI*2);
-    ctx.fillStyle=petalColor;ctx.fill();ctx.restore();
-  }
-  ctx.beginPath();ctx.arc(0,0,r*0.4,0,Math.PI*2);
-  ctx.fillStyle=centerColor;ctx.fill();ctx.restore();
-}
-
-function smallFlower(x,y,r,color,rot){
-  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
-  for(let i=0;i<4;i++){
-    ctx.save();ctx.rotate((Math.PI/2)*i);
-    ctx.beginPath();ctx.ellipse(0,-r,r*0.48,r,0,0,Math.PI*2);
-    ctx.fillStyle=color;ctx.fill();ctx.restore();
-  }
-  ctx.beginPath();ctx.arc(0,0,r*0.32,0,Math.PI*2);
-  ctx.fillStyle='rgba(255,240,190,0.7)';ctx.fill();ctx.restore();
-}
-
-function leaves(x,y,color,rot){
-  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
-  [[-4,-5,-25],[4,-5,25],[0,-9,0]].forEach(([lx,ly,lr])=>{
-    ctx.save();ctx.translate(lx,ly);ctx.rotate(lr*Math.PI/180);
-    ctx.beginPath();ctx.ellipse(0,0,2.2,4.5,0,0,Math.PI*2);
-    ctx.fillStyle=color;ctx.fill();ctx.restore();
-  });
-  ctx.restore();
-}
-
 function drawPattern(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   const w=canvas.width, h=canvas.height;
@@ -536,28 +504,7 @@ function drawPattern(){
   let seed=42;
   function rand(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646;}
 
-  const pinkA ='rgba(220,140,165,0.18)';
-  const pinkB ='rgba(240,170,190,0.15)';
-  const blueA ='rgba(180,185,215,0.15)';
-  const leafA ='rgba(160,185,155,0.2)';
-  const leafB ='rgba(170,190,200,0.18)';
-  const yellow='rgba(240,220,160,0.55)';
-
-  // scattered florals
-  const cols=7, rows=10;
-  const cellW=w/cols, cellH=h/rows;
-  for(let row=0;row<rows;row++){
-    for(let col=0;col<cols;col++){
-      const x=col*cellW+rand()*cellW;
-      const y=row*cellH+rand()*cellH;
-      const kind=rand(), rot=rand()*Math.PI*2;
-      if(kind<0.35){ daisy(x,y,5+rand()*3,rand()<0.5?pinkA:pinkB,yellow,rot); }
-      else if(kind<0.55){ smallFlower(x,y,4+rand()*2,rand()<0.5?pinkA:blueA,rot); }
-      else if(kind<0.78){ leaves(x,y,rand()<0.5?leafA:leafB,rot); }
-    }
-  }
-
-  // scattered tiny dots
+  // scattered tiny dots only
   for(let i=0;i<120;i++){
     const x=rand()*w, y=rand()*h;
     const r=rand()<0.5 ? 1.5 : 2.2;
