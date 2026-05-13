@@ -7,18 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:      #FDEEF5;
-  --sidebar: #FCE8F2;
+  --bg:      #F0F8FA;
+  --sidebar: #F7FBFC;
   --card:    #FFFFFF;
-  --cupid:   #FCBFD4;
-  --azalea:  #FFD0E2;
-  --lavender:#DBDAEC;
-  --zircon:  #E9EDF6;
-  --ink:     #3A3240;
-  --mid:     #7A5C68;
-  --soft:    #B89BA6;
-  --accent:  #C47A95;
-  --rule:    rgba(196,122,149,0.15);
+  --cupid:   #B8E4EC;
+  --azalea:  #D4F0F5;
+  --lavender:#C8DCE8;
+  --zircon:  #E8F4F8;
+  --ink:     #2A3A40;
+  --mid:     #4A6A75;
+  --soft:    #85A8B5;
+  --accent:  #5A9FAD;
+  --rule:    rgba(90,159,173,0.15);
   --sw:      210px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -109,18 +109,6 @@ main{
   grid-template-columns:1fr 1fr;
   position:relative;
 }
-.hero-inner::before{
-  content:'';position:absolute;
-  width:50vw;height:50vw;border-radius:50%;
-  background:var(--azalea);opacity:0.4;
-  top:-12vw;right:-8vw;pointer-events:none;
-}
-.hero-inner::after{
-  content:'';position:absolute;
-  width:22vw;height:22vw;border-radius:50%;
-  background:var(--zircon);opacity:0.45;
-  bottom:-3vw;left:28%;pointer-events:none;
-}
 .hero-left{
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:4rem 3rem 4.5rem 4.5rem;
@@ -133,8 +121,8 @@ main{
 }
 .hero-eyebrow{font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;font-weight:400;}
 .hero-name{font-family:'EB Garamond',serif;font-weight:400;line-height:0.92;color:var(--ink);margin-bottom:2rem;}
-.hero-name .first{font-size:clamp(5rem,9vw,8.5rem);display:block;}
-.hero-name .last{font-size:clamp(5rem,9vw,8.5rem);display:block;color:var(--accent);}
+.hero-name .first{font-size:clamp(5rem,9vw,8.5rem);display:block;color:#1A1A1A;}
+.hero-name .last{font-size:clamp(5rem,9vw,8.5rem);display:block;color:#1A1A1A;}
 .hero-desc{font-size:0.93rem;color:var(--mid);line-height:1.88;max-width:380px;margin-bottom:2.2rem;font-weight:300;}
 .hero-pills{display:flex;gap:0.6rem;flex-wrap:wrap;}
 .pill{font-size:0.68rem;letter-spacing:0.07em;padding:0.52rem 1.25rem;border-radius:100px;border:1px solid rgba(196,122,149,0.35);color:var(--mid);text-decoration:none;background:var(--card);transition:all 0.2s;font-weight:400;}
@@ -209,8 +197,8 @@ main{
 .gallery-btn svg{width:12px;height:12px;opacity:0.6;}
 .contact-centered{text-align:center;padding:5rem 2rem 4rem;position:relative;}
 .contact-hl{font-family:'EB Garamond',serif;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:1.4rem;}
-.contact-hl .line1{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;}
-.contact-hl .line2{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;color:var(--accent);}
+.contact-hl .line1{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;color:#1A1A1A;}
+.contact-hl .line2{font-size:clamp(2.6rem,4.5vw,3.8rem);display:block;color:#1A1A1A;}
 .contact-sub{font-size:0.78rem;color:var(--soft);letter-spacing:0.04em;line-height:1.7;margin-bottom:2.5rem;font-weight:300;}
 .c-links{display:flex;justify-content:center;gap:3rem;}
 .c-link{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;font-weight:400;border-bottom:1px solid rgba(196,122,149,0.4);padding-bottom:0.15rem;transition:color 0.2s,border-color 0.2s;}
@@ -509,7 +497,7 @@ function drawPattern(){
     const x=rand()*w, y=rand()*h;
     const r=rand()<0.5 ? 1.5 : 2.2;
     ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.fillStyle='rgba(255,255,255,0.5)';
+    ctx.fillStyle='rgba(255,255,255,0.65)';
     ctx.fill();
   }
 }
